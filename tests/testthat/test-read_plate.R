@@ -123,3 +123,18 @@ context("testing read_plate-checkUniquePlateNames()")
       expect_true("values" %in% colnames(plate))
       expect_true("values.2" %in% colnames(plate))
    })
+   
+test_that("read_plate doesn't give warning with incomplete final line", {
+   filename <- "testData/incomplete-final-line.csv"
+   
+   # regex = NA means don't expect warnings
+   expect_warning(read_plate(filename, "wells"), regex = NA)
+})
+  
+test_that("read_plate handles mixed numbers and strings correctly", {
+    # see github issue 18
+    filename <- "testData/numbers-and-text.csv"
+    
+    r <- read_plate(filename)
+    expect_that(r$NumbersAndText, is_identical_to(c("text", "1.00E+04", "1.00E+04")))
+}) 
