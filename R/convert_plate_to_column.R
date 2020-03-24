@@ -61,7 +61,12 @@ convert_plate_to_column <- function(plate, plate_size) {
 # requires:    plate contains a character vector, as specified above
 # returns:     a data frame created from the plate
 plate_text_to_data_frame <- function(plate) {
-   utils::read.table(textConnection(plate), sep = ",", 
+   connection <- textConnection(plate)
+    
+    # close connections opened to read.table below
+   on.exit(close.connection(connection))
+    
+   utils::read.table(connection, sep = ",", 
       na.strings = "", stringsAsFactors = FALSE, comment.char = "", 
       colClasses = "character")
     # use colClasses = "character" to keep all data the same type for now
@@ -111,7 +116,7 @@ are_row_labels_valid <- function(plate, plate_size) {
    
    rowLabels <- trim_white_space(tolower(plate[[1]]))
    
-   return(identical(letters[1:rows], rowLabels)) 
+   return(identical(tolower(MEGALETTERS(1:rows)), rowLabels)) 
 }
 
 # requires:    plate is non-null and has valid dimensions, but the row labels 
@@ -131,8 +136,8 @@ wrong_row_labels_error_message <- function(plate, plate_size) {
    
    rows <- number_of_rows(plate_size)
    
-   lower <- paste(letters[1:rows], collapse = " ")
-   upper <- paste(LETTERS[1:rows], collapse = " ")
+   lower <- paste(tolower(MEGALETTERS(1:rows)), collapse = " ")
+   upper <- paste(MEGALETTERS(1:rows), collapse = " ")
    
    output <- paste("Correct row labels not found. Found '", found, 
       "' but expected '",lower, "' or '", upper, "'.", sep = "")

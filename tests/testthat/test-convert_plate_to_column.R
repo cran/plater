@@ -1,4 +1,4 @@
-for (i in c(12, 24, 48, 96, 384)) {
+for (i in c(6, 12, 24, 48, 96, 384, 1536)) {
    path <- paste0("testData/", i, "/")
    
    ################################################################################
@@ -39,18 +39,18 @@ for (i in c(12, 24, 48, 96, 384)) {
    test_that("validate_plate() passes with valid input", {
       # no error
       plate <- plate_text_to_data_frame(get_file_for_validate_plate("validPlate.csv"))
-      validate_plate(plate, i)
+      expect_silent(validate_plate(plate, i))
       
       # missing column data, but includes all titles
       plate <- plate_text_to_data_frame(get_file_for_validate_plate("missingColumnsWithCorrectTitles.csv"))
-      validate_plate(plate, i)
+      expect_silent(validate_plate(plate, i))
    })
    
    test_that("validate_plate() passes with white space around row labels", {
       # no error
       # contains spaces in the row labels
       plate <- plate_text_to_data_frame(get_file_for_validate_plate("validPlateWithWhiteSpaceInRowNames.csv"))
-      validate_plate(plate, i)
+      expect_silent(validate_plate(plate, i))
    })
    
    ################################################################################
@@ -67,13 +67,12 @@ for (i in c(12, 24, 48, 96, 384)) {
       message <- wrong_row_labels_error_message(incorrectRowLabels, i)
       
       rows <- number_of_rows(i)
-      wrong <- paste(c("X", LETTERS[2:rows]), collapse = " ")
-      lower <- paste(letters[1:rows], collapse = " ")
-      upper <- paste(LETTERS[1:rows], collapse = " ")
+      wrong <- paste(c("X", MEGALETTERS(2:rows)), collapse = " ")
+      lower <- paste(tolower(MEGALETTERS(1:rows)), collapse = " ")
+      upper <- paste(MEGALETTERS(1:rows), collapse = " ")
       
-      expect_that(message, matches(
-         paste0("Correct row labels not found. Found '", wrong, "' but ",
-                  "expected '", lower, "' or '", upper,"'.")))
+      expect_match(message, paste0("Correct row labels not found. Found '", 
+          wrong, "' but ", "expected '", lower, "' or '", upper,"'."))
    })
    
    ################################################################################

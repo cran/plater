@@ -3,7 +3,6 @@
 \docType{package}
 \name{plater}
 \alias{plater}
-\alias{plater-package}
 \title{Tools to Make it Easy to Work with Microtiter Plate-Shaped Data}
 \description{
 plater defines a simple, plate-shaped file format for data storage, so it's 
@@ -17,4 +16,3 @@ plate-shaped data and tidy data (\code{\link[plater]{add_plate}}). It further
 allows easy plate-shaped visualization of tidy data 
 (\code{\link[plater]{view_plate}}).
 }
-
