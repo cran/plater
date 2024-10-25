@@ -1,6 +1,6 @@
 Package: plater
 Title: Read, Tidy, and Display Data from Microtiter Plates
-Version: 1.0.4
+Version: 1.0.5
 Authors@R: person("Sean", "Hughes", email = "smhughes@uw.edu",
     role = c("aut", "cre"), 
     comment = c(ORCID = "0000-0002-9409-9405"))
@@ -15,10 +15,11 @@ URL: https://docs.ropensci.org/plater/,
         https://github.com/ropensci/plater
 BugReports: https://github.com/ropensci/plater/issues
 VignetteBuilder: knitr
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.2
+Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2022-02-11 19:27:00 UTC; smhughes
+Packaged: 2024-10-25 18:59:18 UTC; smhughes
 Author: Sean Hughes [aut, cre] (<https://orcid.org/0000-0002-9409-9405>)
 Maintainer: Sean Hughes <smhughes@uw.edu>
 Repository: CRAN
-Date/Publication: 2022-02-11 19:40:02 UTC
+Date/Publication: 2024-10-25 20:10:01 UTC
